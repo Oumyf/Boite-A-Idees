@@ -1,3 +1,31 @@
+<?php
+session_start(); // Démarrer la session
+
+// Inclure le fichier de connexion à la base de données
+include_once "connexion.php";
+
+// Récupérer l'ID de l'utilisateur à partir de la session
+$id_utilisateur = $_SESSION['utilisateur_id'];
+
+// Requête SQL pour récupérer le nom de l'utilisateur à partir de son ID
+$sql = "SELECT prenom FROM Utilsateur WHERE ID = ?";
+$stmt = $con->prepare($sql);
+$stmt->bind_param("i", $id_utilisateur);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Vérifier si un utilisateur correspondant est trouvé
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    $nom_utilisateur = $row['prenom']; // Récupérer le prénom de l'utilisateur
+} else {
+    $nom_utilisateur = "Utilisateur inconnu"; // Gérer le cas où aucun utilisateur correspondant n'est trouvé
+}
+
+// Fermer la requête
+$stmt->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +33,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion Employés</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <!-- <div class="header">
-    <nav class="">
-        <a href="#"><img src="./images/Innovatech-Logo.png" alt=""></a>
+    <?php include "./header.php" ; ?>
 
-</nav>
-    </div> -->
     <div class="container">
         <a href="./ajouter.php" class="Btn_add"> <img src="images/plus.png"> Ajouter</a>
         
@@ -30,50 +54,38 @@
                 <th>Supprimer</th>
             </tr>
             <?php 
-                //inclure la page de connexion
-                include_once "connexion.php";
-                //requête pour afficher la liste des employés
-                // Récupérer les informations sur les idées avec les noms des administrateurs et des utilisateurs
-                $query = "SELECT Idee.ID, Idee.titre, Idee.description, Idee.date, Idee.statut, Categorie.libelle, Utilsateur.prenom 
-                FROM Idee 
-                LEFT JOIN Categorie ON idee.ID_categorie = Categorie.ID 
-                LEFT JOIN Utilsateur ON idee.ID_utilisateur = utilsateur.ID";
-                $result = mysqli_query($con, $query);
-                if(mysqli_num_rows($result) == 0){
-                    //s'il n'existe pas d'employé dans la base de donné , alors on affiche ce message :
-                    echo "Il n'y a pas encore d'idée ajoutée !" ;
-                    
-                }else {
-                    //si non , affichons la liste de tous les employés
-                    while($row=mysqli_fetch_assoc($result)){
-                        ?>
-                        <tr>
-                            <td><?=$row['titre']?></td>
-                            <td><?=$row['description']?></td>
-                            <td><?=$row['date']?></td>
-                            <td><?=$row['statut']?></td>
-                            <td><?=$row['libelle']?></td>
-                            <td><?=$row['prenom']?></td>
-                            <!--Nous alons mettre l'id de chaque employé dans ce lien -->
-                            <td><a href="modifier.php?id=<?=$row['ID']?>"><img src="images/pen.png"></a></td>
-                            <td><a href="supprimer.php?id=<?=$row['ID']?>"><img src="images/trash.png"></a></td>
-                        </tr>
-                        <?php
+                // Requête pour afficher la liste des idées avec le nom de l'utilisateur
+                $query = "SELECT Idee.ID, Idee.titre, Idee.description, Idee.date, Idee.statut, Categorie.libelle
+                          FROM Idee 
+                          LEFT JOIN Categorie ON Idee.ID_categorie = Categorie.ID
+                          WHERE Idee.ID_utilisateur = ?";
+                $stmt = $con->prepare($query);
+                $stmt->bind_param("i", $id_utilisateur);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['titre'] . "</td>";
+                        echo "<td>" . $row['description'] . "</td>";
+                        echo "<td>" . $row['date'] . "</td>";
+                        echo "<td>" . $row['statut'] . "</td>";
+                        echo "<td>" . $row['libelle'] . "</td>";
+                        echo "<td>" . $nom_utilisateur . "</td>";
+                        echo "<td><a href='modifier.php?id=" . $row['ID'] . "'><img src='images/pen.png'></a></td>";
+                        echo "<td><a href='supprimer.php?id=" . $row['ID'] . "'><img src='images/trash.png'></a></td>";
+                        echo "</tr>";
                     }
-                    
+                } else {
+                    echo "<tr><td colspan='8'>Aucune idée trouvée pour cet utilisateur.</td></tr>";
                 }
+
+                // Fermer la requête
+                $stmt->close();
             ?>
-      
-         
         </table>
-   
-   
-   
-   
     </div>
-    
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

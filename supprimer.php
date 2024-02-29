@@ -1,3 +1,4 @@
+<?php session_start();?>
 <?php
   //connexion a la base de données
   include_once "connexion.php";
@@ -6,5 +7,5 @@
   //requête de suppression
   $req = mysqli_query($con , "DELETE FROM Idee WHERE id = $id");
   //redirection vers la page index.php
-  header("Location:index.php")
+  header("Location:accueil.php")
 ?>

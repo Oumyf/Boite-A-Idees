@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,8 @@
            //verifier que tous les champs ont été remplis
            if(isset($titre) && isset($description) && $date && isset($statut)  && isset($ID_categorie)  && isset($ID_utilisateur)){
                //requête de modification
-               $req = mysqli_query($con, "UPDATE Idee SET titre = '$titre' , description = '$description' , date = '$date' , statut = '$statut' , ID_categorie = '$ID_categorie' , ID_utilisateur = '$ID_utilisateur' WHERE id = $id");
+               $req = mysqli_query($con, "UPDATE Idee SET titre = '$titre' , descr
+               iption = '$description' , date = '$date' , statut = '$statut' , ID_categorie = '$ID_categorie'  WHERE id = $id");
                 if($req){//si la requête a été effectuée avec succès , on fait une redirection
                     header("location: accueil.php");
                 }else {//si non
@@ -42,7 +44,7 @@
     ?>
 
     <div class="form">
-        <a href="index.php" class="back_btn"><img src="images/back.png"> Retour</a>
+        <a href="accueil.php" class="back_btn"><img src="images/back.png"> Retour</a>
         <h2>Modifier l'idée : <?=$row['titre']?> </h2>
         <p class="erreur_message">
            <?php 
@@ -66,9 +68,9 @@
             </select>
             <input type="hidden" name="id" value="ID">
                         <!-- Autres champs existants -->
-    <label>Categorie</label>
+                        <label>Catégorie</label>
     <select name="ID_categorie">
-        <option value="<?=$row['ID_categorie']?>">Sélectionner une categorie</option>
+        <option value="">Sélectionner une  catégorie</option>
         <?php
             // Inclure le fichier de connexion à la base de données
             include_once "connexion.php";
@@ -77,22 +79,11 @@
             $query_categories = "SELECT ID, libelle FROM Categorie";
             $result_categories = mysqli_query($con, $query_categories);
             while ($row_categorie = mysqli_fetch_assoc($result_categories)) {
-                echo "<option value='" . $row_categorie['ID'] . "'>" . $row_categorie['nom'] . "</option>";
+                echo "<option value='" . $row_categorie['ID'] . "'>" . $row_categorie['libelle'] . "</option>";
             }
         ?>
     </select>
-    <label>Utilisateur</label>
-    <select name="ID_utilisateur">
-        <option value="<?=$row['ID_utilisateur']?>">Sélectionner un utilisateur</option>
-        <?php
-            // Récupérer la liste des utilisateurs depuis la base de données
-            $query_utilisateurs = "SELECT ID , nom FROM Utilsateur";
-            $result_utilisateurs = mysqli_query($con, $query_utilisateurs);
-            while ($row_utilisateur = mysqli_fetch_assoc($result_utilisateurs)) {
-                echo "<option value='" . $row_utilisateur['ID'] . "'>" . $row_utilisateur['nom'] . "</option>";
-            }
-        ?>
-    </select>
+   
             <input type="submit" value="Modifier" name="button">
         </form>
     </div>

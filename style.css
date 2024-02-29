@@ -8,10 +8,9 @@
 }
 body {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    position: relative;
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* min-height: 100vh; */
 }
 .Btn_add {
     width: fit-content;
@@ -45,7 +44,7 @@ td {
     padding: 5px 30px;
     font-size: 14px;
     text-align: center;
-
+    width: 500px;
 }
 img {
     height: 25px;
@@ -109,4 +108,7 @@ input[type="submit"]{
     cursor: pointer;
     color: #fff;
     text-transform: uppercase;
+}
+.container{
+    margin-top: 700px;
 }

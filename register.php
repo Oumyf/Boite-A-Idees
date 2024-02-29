@@ -47,7 +47,7 @@ $con->close();
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-image: url("theos_innovation.jpg");
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -55,13 +55,17 @@ $con->close();
             height: 100vh;
         }
 
+       
+
         .container {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.3);
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            width: 380px;
             max-width: 400px;
+            margin-top: 230px;
         }
 
         form {
@@ -76,11 +80,12 @@ $con->close();
         input {
             padding: 8px;
             margin-bottom: 16px;
+            background-color: #000;
         }
 
         button {
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #000;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -88,15 +93,17 @@ $con->close();
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #000;
         }
 
         .inscription-section {
+            color: yellow;
+            text-align: center;
             margin-top: 20px;
         }
 
         .inscription-section a {
-            color: #007BFF;
+            color: yellow;
             text-decoration: none;
             font-weight: bold;
         }
