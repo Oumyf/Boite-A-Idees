@@ -33,16 +33,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Vérifier si le mot de passe soumis correspond au mot de passe stocké dans la base de données
         if ($mot_de_passe === $mot_de_passe_db) {
             $_SESSION['utilisateur_id'] = $id_utilisateur; // Stocker l'ID de l'utilisateur dans la session
+            $_SESSION['nom_utilisateur'] = $nom_utilisateur; // Stocker le nom d'utilisateur dans la session
+
             // Redirection vers la page d'accueil
             header("Location: ./accueil.php");
             exit();
         } else {
             // Gérer le cas où le mot de passe soumis est incorrect
-            echo "Mot de passe incorrect. Veuillez réessayer.";
+            $erreur = "Mot de passe incorrect. Veuillez réessayer.";
         }
     } else {
         // Gérer le cas où aucun utilisateur correspondant n'est trouvé
-        echo "Nom d'utilisateur incorrect. Veuillez réessayer.";
+        $erreur = "Nom d'utilisateur incorrect. Veuillez réessayer.";
     }
     
     // Fermer la requête
@@ -60,7 +62,72 @@ $con->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de Connexion</title>
     <style>
-        /* Votre style CSS ici */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("theos_innovation.jpg");
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+       
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            width: 300px;
+            max-width: 400px;
+            margin-top: 80px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000;
+        }
+
+        .inscription-section {
+            color: yellow;
+
+            margin-top: 20px;
+        }
+
+        .inscription-section a {
+            color: yellow;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .inscription-section a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -75,6 +142,12 @@ $con->close();
 
             <button type="submit">Se connecter</button>
         </form>
+        <?php
+        // Afficher les erreurs s'il y en a
+        if (isset($erreur)) {
+            echo "<p>$erreur</p>";
+        }
+        ?>
     </div>
 </body>
 </html>

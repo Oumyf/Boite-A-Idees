@@ -1,8 +1,8 @@
 
 <?php
 session_start(); // Démarrer la session
-include "./header.php" ;
 // Vérifier si le formulaire a été soumis
+
 if(isset($_POST['button'])) {
     // Extraction des données du formulaire
     $titre = $_POST['titre'];
@@ -52,9 +52,101 @@ if(isset($_POST['button'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            /* background-color: #fff; */
+            background-image: url('boite-a-idee.jpg');
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+            width: 100%;
+            margin-top: -1000px;
+            margin: 20px ; /* Centrer le contenu */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        
+        .add-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+        form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+form input[type="text"],
+form input[type="date"],
+form select {
+    width: 70%;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("arrow-down.svg") no-repeat right;
+    background-size: 10px;
+    padding-right: 25px;
+}
+
+form input[type="submit"] {
+    width: 70%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+    </style>
 </head>
 <body>
+  
     <div class="container">
+    <div class="header">
+  <?php
+    include "header.php" ;
+    ?>
+  </div>
         <h2>Ajouter une idée</h2>
         <form action="" method="POST">
             <label>Titre</label>
@@ -65,9 +157,8 @@ if(isset($_POST['button'])) {
             <input type="date" name="date">
             <label for="statut">Sélectionnez le statut de l'idée :</label>
             <select name="statut" id="statut">
-                <option value="en_attente">En attente</option>
-                <option value="en_cours">En cours</option>
-                <option value="terminee">Terminée</option>
+                <option value="en_attente">Approuver</option>
+                <option value="en_cours">Refuser</option>
             </select>
             <!-- Autres champs existants -->
             <label>Catégorie</label>
@@ -88,8 +179,6 @@ if(isset($_POST['button'])) {
             <input type="submit" value="Ajouter" name="button">
         </form>
     </div>
-</body>
-</html>
 
 </body>
 </html>
