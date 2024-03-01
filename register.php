@@ -5,8 +5,8 @@ $nouveau_nom_utilisateur = $nouveau_mot_de_passe = "";
 $erreur = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nouveau_nom_utilisateur = $_POST["nouveau_nom_utilisateur"];
-    $nouveau_mot_de_passe = $_POST["nouveau_mot_de_passe"];
+    $nouveau_nom_utilisateur = $_POST["nom_utilisateur"];
+    $nouveau_mot_de_passe = $_POST["mot_de_passe"];
 
     // Vérification si le nom d'utilisateur existe déjà
     $sql_verifier_utilisateur = "SELECT * FROM Utilsateur WHERE nom = ?";
@@ -80,7 +80,7 @@ $con->close();
         input {
             padding: 8px;
             margin-bottom: 16px;
-            background-color: #000;
+            background-color: #fff;
         }
 
         button {
@@ -119,10 +119,10 @@ $con->close();
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <h2>Inscription</h2>
         <label for="nouveau_nom_utilisateur">Nom d'utilisateur :</label>
-        <input type="text" id="nouveau_nom_utilisateur" name="nouveau_nom_utilisateur" required>
+        <input type="text" id="nouveau_nom_utilisateur" name="nom_utilisateur" required>
 
         <label for="nouveau_mot_de_passe">Mot de passe :</label>
-        <input type="password" id="nouveau_mot_de_passe" name="nouveau_mot_de_passe" required>
+        <input type="text" id="nouveau_mot_de_passe" name="mot_de_passe" required>
 
         <button type="submit">S'inscrire</button>
     </form>
