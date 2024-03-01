@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
     <style>
-        /* body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-        } */
+        }
     .menu {
-            padding: 20px;
-            margin-bottom: 600px;
+            /* padding: 20px; */
+            /* margin-bottom: 20px; */
+            background-color: rgba(250, 100,175, 0.2);
+            margin-top: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-left: 300px;
+            margin-left: 10px;
+            margin-bottom: 100px;
+            padding-left: 30px;
             
             
 

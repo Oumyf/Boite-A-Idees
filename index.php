@@ -60,21 +60,90 @@ $con->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de Connexion</title>
     <style>
-        /* Votre style CSS ici */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("theos_innovation.jpg");
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+       
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            width: 300px;
+            max-width: 400px;
+            margin-top: 80px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #000;
+        }
+
+        .inscription-section {
+            color: yellow;
+
+            margin-top: 20px;
+        }
+
+        .inscription-section a {
+            color: yellow;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .inscription-section a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Connexion</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <label for="nom_utilisateur">Nom d'utilisateur :</label>
-            <input type="text" id="nom_utilisateur" name="nom_utilisateur" required>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label for="nom_utilisateur">Nom d'utilisateur :</label>
+        <input type="text" id="nom_utilisateur" name="nom_utilisateur" required>
 
-            <label for="mot_de_passe">Mot de passe :</label>
-            <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+        <label for="mot_de_passe">Mot de passe :</label>
+        <input type="password" id="mot_de_passe" name="mot_de_passe" required>
 
-            <button type="submit">Se connecter</button>
-        </form>
-    </div>
+        <button type="submit">Se connecter</button>
+    </form>
+</div>
+
+<div class="inscription-section">
+    <p>Vous n'avez pas de compte ? <a href="./register.php">Inscrivez-vous ici</a>.</p>
+</div>
+</div>
 </body>
 </html>
